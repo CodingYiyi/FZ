@@ -41,23 +41,8 @@
     <!-- 患者基本信息 -->
     <section class="section">
       <fieldset>
-        <legend>患者基本信息</legend>
+        <legend>患者信息</legend>
         <div nz-row>
-          <div nz-col nzSpan="12">
-            <span class="search_label">患者编号：</span><input nz-input [(ngModel)]="userInfo.patientNo" [disabled]="disabled" style="width:60%">
-          </div>
-          <div nz-col nzSpan="12">
-            <span class="search_label">证件号码：</span>
-            <nz-select style="width: 120px;" [(ngModel)]="userInfo.idType" nzPlaceHolder="证件类型" [nzDisabled]="disabled">
-              <nz-option nzValue="0" nzLabel="身份证"></nz-option>
-              <nz-option nzValue="1" nzLabel="港澳通行证"></nz-option>
-              <nz-option nzValue="2" nzLabel="台湾通行证"></nz-option>
-              <nz-option nzValue="3" nzLabel="护照"></nz-option>
-            </nz-select>
-            <input nz-input [(ngModel)]="userInfo.userID" [disabled]="disabled" style="width:260px">
-          </div>
-        </div>
-        <div nz-row style="margin-top:8px;">
           <div nz-col nzSpan="12">
             <span class="search_label" style="color:red">＊姓名：</span>
             <input nz-input placeholder="请输入患者姓名（必填）" [(ngModel)]="userInfo.patientName" [disabled]="disabled" style="width:60%">
@@ -69,9 +54,23 @@
               <nz-option nzValue="0" nzLabel="岁"></nz-option>
               <nz-option nzValue="1" nzLabel="月"></nz-option>
               <nz-option nzValue="2" nzLabel="天"></nz-option>
-              <nz-option nzValue="3" nzLabel="小时"></nz-option>
-              <nz-option nzValue="4" nzLabel="分钟"></nz-option>
             </nz-select>
+          </div>
+        </div>
+        <div nz-row style="margin-top:8px;">
+          <div nz-col nzSpan="12">
+            <span class="search_label">患者编号：</span><input nz-input [(ngModel)]="userInfo.patientNo" [disabled]="disabled"
+              style="width:60%">
+          </div>
+          <div nz-col nzSpan="12">
+            <span class="search_label">证件号码：</span>
+            <nz-select style="width: 120px;" [(ngModel)]="userInfo.idType" nzPlaceHolder="证件类型" [nzDisabled]="disabled">
+              <nz-option nzValue="0" nzLabel="身份证"></nz-option>
+              <nz-option nzValue="1" nzLabel="港澳通行证"></nz-option>
+              <nz-option nzValue="2" nzLabel="台湾通行证"></nz-option>
+              <nz-option nzValue="3" nzLabel="护照"></nz-option>
+            </nz-select>
+            <input nz-input [(ngModel)]="userInfo.userID" [disabled]="disabled" style="width:260px">
           </div>
         </div>
         <div nz-row style="margin-top:8px;">
@@ -100,7 +99,7 @@
         </div>
         <div nz-row style="margin-top:8px;">
           <div nz-col nzSpan="12">
-            <span class="search_label">联系人：</span>
+            <span class="search_label">联系人姓名：</span>
             <input nz-input [(ngModel)]="userInfo.contactName" style="width:60%" [disabled]="disabled">
           </div>
           <div nz-col nzSpan="12">
@@ -131,11 +130,89 @@
             <input nz-input [(ngModel)]="userInfo.clinicNo" style="width:60%" [disabled]="disabled">
           </div>
         </div>
+        <div nz-row style="margin-top:8px">
+          <div nz-col nzSpan="12">
+            <span class="search_label required">＊申请类别：</span>
+            <nz-select style="width:60%" [(ngModel)]="patientMedicalInfo.applyType" nzPlaceHolder="选择申请类别" [nzDisabled]="disabled">
+              <nz-option nzValue="0" nzLabel="住院"></nz-option>
+              <nz-option nzValue="1" nzLabel="门诊"></nz-option>
+              <nz-option nzValue="2" nzLabel="检查"></nz-option>
+              <nz-option nzValue="3" nzLabel="检验"></nz-option>
+            </nz-select>
+          </div>
+          <div nz-col nzSpan="12">
+            <span class="search_label">费用类别：</span>
+            <nz-select style="width:60%" [(ngModel)]="patientMedicalInfo.costType" nzPlaceHolder="选择费用类别" [nzDisabled]="disabled">
+              <nz-option nzValue="0" nzLabel="自费"></nz-option>
+              <nz-option nzValue="1" nzLabel="农合"></nz-option>
+              <nz-option nzValue="2" nzLabel="医保"></nz-option>
+              <nz-option nzValue="3" nzLabel="职工医保"></nz-option>
+              <nz-option nzValue="4" nzLabel="企业在职"></nz-option>
+              <nz-option nzValue="5" nzLabel="新农合"></nz-option>
+              <nz-option nzValue="6" nzLabel="工伤保险"></nz-option>
+              <nz-option nzValue="7" nzLabel="医疗保险"></nz-option>
+              <nz-option nzValue="8" nzLabel="其他"></nz-option>
+            </nz-select>
+          </div>
+        </div>
+        <div nz-row style="margin-top:8px">
+          <div nz-col nzSpan="24">
+            <span class="search_label">转诊原因：</span>
+            <nz-select nzMode="tags" style="width: 80%;" nzPlaceHolder="请选择转诊原因" [(ngModel)]="patientMedicalInfo.transferReason"
+              [nzDisabled]="disabled">
+              <nz-option *ngFor="let option of transferOptions" [nzLabel]="option.label" [nzValue]="option.value">
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
+        <div nz-row style="margin-top:8px">
+          <div nz-col nzSpan="24">
+            <span class="search_label">转诊目的：</span>
+            <input nz-input placeholder="请输入病人转诊目的" [(ngModel)]="patientMedicalInfo.transferPurpose" style="width:80%"
+              [disabled]="disabled">
+          </div>
+        </div>
+        <div nz-row style="margin-top:8px">
+          <div nz-col nzSpan="24">
+            <span class="search_label">主要既往史：</span>
+            <input nz-input placeholder="请输入病人主要的既往史" [(ngModel)]="patientMedicalInfo.history" style="width:80%"
+              [disabled]="disabled">
+          </div>
+        </div>
+        <div nz-row style="margin-top:8px">
+          <div nz-col nzSpan="24">
+            <span class="search_label">转诊目的及指征：</span>
+            <nz-tree-select style="width: 80%" [nzNodes]="transferNodes" nzShowSearch nzPlaceHolder="选择转折目的及指征"
+              [(ngModel)]="patientMedicalInfo.transferIndication" (ngModelChange)="onChange($event)" [nzDisabled]="disabled">
+            </nz-tree-select>
+          </div>
+        </div>
+        <div nz-row style="margin-top:8px;">
+          <div nz-col nzSpan="24">
+            <span class="search_label required">＊患者诊断：</span>
+            <input nz-input placeholder="请输入病人诊断" [(ngModel)]="patientMedicalInfo.diagnose" style="width:80%"
+              [disabled]="disabled">
+          </div>
+        </div>
+        <div nz-row style="margin-top:8px;">
+          <div nz-col nzSpan="24">
+            <span class="search_label">患者病情描述：</span>
+            <textarea nz-input placeholder="请输入详细病情描述" [(ngModel)]="patientMedicalInfo.description" [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+              style="width:80%" [disabled]="disabled"></textarea>
+          </div>
+        </div>
+        <div nz-row style="margin-top:8px;">
+          <div nz-col nzSpan="24">
+            <span class="search_label">出院小结：</span>
+            <textarea nz-input placeholder="请输入出院小结" [(ngModel)]="patientMedicalInfo.summary" [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+              style="width:80%" [disabled]="disabled"></textarea>
+          </div>
+        </div>
       </fieldset>
     </section>
 
     <!-- 患者基本医疗信息 -->
-    <section class="section">
+    <!-- <section class="section">
       <fieldset>
         <legend>患者基本医疗信息</legend>
         <div nz-row>
@@ -211,10 +288,10 @@
           </div>
         </div>
       </fieldset>
-    </section>
+    </section> -->
 
     <!-- 转出医疗机构信息 -->
-    <section class="section">
+    <!-- <section class="section">
       <fieldset>
         <legend>转出医疗机构信息</legend>
         <div nz-row>
@@ -224,9 +301,9 @@
           </div>
           <div nz-col nzSpan="12">
             <span class="search_label">转出科室：</span>
-            <!-- <nz-tree-select style="width: 70%" [nzNodes]="deptNodes" nzShowSearch [(ngModel)]="outOrgInfo.outDept"
+            <nz-tree-select style="width: 70%" [nzNodes]="deptNodes" nzShowSearch [(ngModel)]="outOrgInfo.outDept"
               (ngModelChange)="onChange($event)">
-            </nz-tree-select> -->
+            </nz-tree-select>
             <nz-select style="width:60%" [(ngModel)]="outOrgInfo.outDept">
               <nz-option nzValue="0" nzLabel="骨科"></nz-option>
               <nz-option nzValue="1" nzLabel="产科"></nz-option>
@@ -249,12 +326,12 @@
           </div>
         </div>
       </fieldset>
-    </section>
+    </section> -->
 
     <!-- 转入医疗机构信息 -->
     <section class="section">
       <fieldset>
-        <legend>转入医疗机构信息</legend>
+        <legend>患者待转入医疗机构信息</legend>
         <div nz-row>
           <div nz-col nzSpan="12">
             <span class="search_label required">＊转诊方向：</span>
@@ -265,36 +342,34 @@
             </nz-radio-group>
           </div>
           <div nz-col nzSpan="12">
+            <span class="search_label">计划转入时间：</span>
+            <nz-date-picker [(ngModel)]="inOrgInfo.date" (ngModelChange)="onChange($event)"></nz-date-picker>
+          </div>
+        </div>
+        <div nz-row style="margin-top:8px;">
+          <div nz-col nzSpan="8">
             <span class="search_label required">＊转入医院：</span>
-            <nz-select style="width:60%" [(ngModel)]="inOrgInfo.hospital">
+            <nz-select style="width:50%" [(ngModel)]="inOrgInfo.hospital">
               <nz-option nzValue="0" nzLabel="六塘中心卫生院"></nz-option>
             </nz-select>
           </div>
-        </div>
-        <div nz-row style="margin-top:8px;">
-          <div nz-col nzSpan="12">
+          <div nz-col nzSpan="8">
             <span class="search_label">转入科室：</span>
-            <nz-select style="width:60%" [(ngModel)]="inOrgInfo.inDept">
-              <nz-option nzValue="0" nzLabel="骨科"></nz-option>
-              <nz-option nzValue="1" nzLabel="产科"></nz-option>
-              <nz-option nzValue="2" nzLabel="妇产科"></nz-option>
-              <nz-option nzValue="3" nzLabel="其他"></nz-option>
+            <nz-select style="width:50%" [(ngModel)]="inOrgInfo.inDept">
+              <!-- <nz-option nzValue="0" nzLabel="骨科"></nz-option>
+                <nz-option nzValue="1" nzLabel="产科"></nz-option> -->
+              <nz-option nzValue="13409" nzLabel="妇保科"></nz-option>
+              <!-- <nz-option nzValue="3" nzLabel="其他"></nz-option> -->
             </nz-select>
           </div>
-          <div nz-col nzSpan="12">
-            <span class="search_label">转入医生：</span>
-            <nz-select style="width:60%" [(ngModel)]="inOrgInfo.inDoctor">
-              <nz-option nzValue="0" nzLabel="王主任"></nz-option>
-              <nz-option nzValue="1" nzLabel="李主任"></nz-option>
-              <nz-option nzValue="2" nzLabel="张主任"></nz-option>
-            </nz-select>
-          </div>
-        </div>
-        <div nz-row style="margin-top:8px;">
-          <div nz-col nzSpan="24">
-            <span class="search_label">拟定转入时间：</span>
-            <nz-date-picker [(ngModel)]="inOrgInfo.date" (ngModelChange)="onChange($event)"></nz-date-picker>
-          </div>
+          <div nz-col nzSpan="8">
+              <span class="search_label">转入医生：</span>
+              <nz-select style="width:50%" [(ngModel)]="inOrgInfo.inDoctor">
+                <nz-option nzValue="lt502" nzLabel="靳爱军"></nz-option>
+                <nz-option nzValue="lt509" nzLabel="文富英"></nz-option>
+                <nz-option nzValue="lt518" nzLabel="龙小兰"></nz-option>
+              </nz-select>
+            </div>
         </div>
       </fieldset>
     </section>
@@ -352,12 +427,11 @@
     </section> -->
 
     <div style="text-align:center;margin-top: 10px;">
-        <button nz-button nzType="primary" style="width:100px;" (click)="submit()">{{confirmText}}</button>
-        <button nz-button nzType="default" style="width:100px;margin-left:20px" (click)="clear()">清空</button>
+      <button nz-button nzType="primary" style="width:100px;" (click)="submit()">{{confirmText}}</button>
+      <button nz-button nzType="default" style="width:100px;margin-left:20px" (click)="clear()">清空</button>
     </div>
   </div>
-  <div style="position: absolute;top: 40%;left: 45%;" *ngIf = "loading">
-      <nz-spin nzSize='large' nzTip='保存数据中...'></nz-spin>
+  <div style="position: absolute;top: 40%;left: 45%;" *ngIf="loading">
+    <nz-spin nzSize='large' nzTip='保存数据中...'></nz-spin>
   </div>
 </div>
-
