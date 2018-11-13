@@ -1,0 +1,52 @@
+.sidebar{
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 60px;
+    line-height: 40px;
+    color: #6e6e6e;
+    background-color: #fff;
+    overflow: hidden;
+    z-index: 3;
+    -webkit-transition: width .2s linear;
+    transition:width .2s linear;
+    -webkit-transform:translateZ(0) scale(1,1);
+    box-shadow: 1px 0 15px rgba(0, 0, 0, 0.07);
+
+    &:hover{
+        width: 220px;
+    }
+
+    .func-list{
+        width: 220px;
+        padding: 40px 0;
+
+        li{
+            padding: 0 20px;
+            outline: none;
+            
+            &:hover{
+                color: #fff;
+                background-color: #00bbbb;
+                cursor: pointer;
+                text-shadow: 0px 0px 0px; 
+            }
+        }
+
+        i{
+            font-size: 18px;
+        }
+
+        span{
+            margin-left: 20px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+    }
+
+    .active{
+        outline: none;
+        color: #00bbbb;
+    }
+}
+

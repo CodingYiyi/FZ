@@ -1,0 +1,32 @@
+.header {
+    position: absolute;
+    height: 60px;
+    width: 100%;
+    padding: 0 20px;
+    background-color: #00bbbb;
+
+    .logo-box{
+        span{
+            padding-left: 20px;
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        img:hover{
+            cursor: pointer;
+        }
+    }
+
+    .icon-box {
+        margin-right: 40px;
+        i {
+            color: #fff;
+            &:hover{
+                cursor: pointer;
+                color: #ccc;
+            }
+        }
+    }
+
+}
+
