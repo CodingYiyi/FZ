@@ -1,0 +1,39 @@
+.header {
+    position: absolute;
+    height: 60px;
+    width: 100%;
+    padding: 0 20px;
+    box-shadow: 0 8px 20px rgba(143,168,191,.6);
+    .logo-box{
+        span{
+            padding-left: 20px;
+            color: #00bbbb;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        img:hover{
+            cursor: pointer;
+        }
+    }
+
+    .icon-box {
+        margin-right: 40px;
+        i {
+            color: #00bbbb;
+            &:hover{
+                cursor: pointer;
+                color: #ccc;
+            }
+        }
+    }
+
+    .logout{
+        color: #00bbbb;
+        font-size: 16px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
+}
+

@@ -1,0 +1,29 @@
+<div style="position:relative;height:100%;background-image: url(../../../assets/login_bg.jpg);background-size: cover">
+  <form nz-form [formGroup]="validateForm"
+  class="login-form" (ngSubmit)="submitForm()">
+  <h2 style="color:#fff">双向诊疗平台</h2>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group [nzPrefix]="prefixUser">
+        <input type="text" nz-input formControlName="userName" placeholder="请输入用户名">
+      </nz-input-group>
+      <nz-form-explain *ngIf="validateForm.get('userName').dirty && validateForm.get('userName').errors">请输入用户名!</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group [nzPrefix]="prefixLock">
+        <input type="password" nz-input formControlName="password" placeholder="请输入密码">
+      </nz-input-group>
+      <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">请输入密码!</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button class="login-form-button" [nzType]="'primary'">登&nbsp;录</button>
+    </nz-form-control>
+  </nz-form-item>
+  </form>
+  <ng-template #prefixUser><i nz-icon type="customer-service" theme="fill"></i></ng-template>
+  <ng-template #prefixLock><i nz-icon type="lock" theme="fill"></i></ng-template>
+</div>

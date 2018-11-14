@@ -1,0 +1,208 @@
+<kyee-header></kyee-header>
+<div class="body-box">
+  <div class="main-body">
+    <div style="text-align:center;margin-bottom: 10px;">
+      <button nz-button nzType="primary" style="width:30%;" (click)="submit()">{{confirmText}}</button>
+    </div>
+
+    <nz-collapse nzAccordion [nzBordered]="false">
+      <nz-collapse-panel nzHeader="患者基本信息（点击展开）" [nzActive]="true" [ngStyle]="customStyle">
+        <div nz-row>
+          <div nz-col nzSpan="6">
+            <span class="search_label" style="color:red">姓名(必填)：</span>
+            <input nz-input placeholder="患者姓名" [(ngModel)]="userInfo.patientName" [disabled]="disabled" style="width:50%">
+          </div>
+          <div nz-col nzSpan="6">
+            <span class="search_label" style="width:60px">性别：</span>
+            <nz-radio-group [(ngModel)]="userInfo.sex" [nzDisabled]="disabled">
+              <label nz-radio nzValue="1">男</label>
+              <label nz-radio nzValue="0">女</label>
+              <label nz-radio nzValue="X">其他</label>
+            </nz-radio-group>
+          </div>
+          <div nz-col nzSpan="6">
+            <span class="search_label" style="width:80px;">出生日期：</span>
+            <nz-date-picker [(ngModel)]="userInfo.birthday" (ngModelChange)="onChange($event)" [nzDisabled]="disabled"></nz-date-picker>
+          </div>
+          <div nz-col nzSpan="6">
+            <span class="search_label">年龄：</span>
+            <input nz-input [(ngModel)]="userInfo.age" style="width:50%" [disabled]="disabled">
+          </div>
+        </div>
+        <div nz-row style="margin-top:4px;">
+          <div nz-col nzSpan="12">
+            <span class="search_label">患者ID：</span><input nz-input [(ngModel)]="userInfo.patientNo" [disabled]="disabled"
+              style="width:60%">
+          </div>
+          <div nz-col nzSpan="12">
+            <span class="search_label">证件ID：</span>
+            <nz-select style="width: 120px;" [(ngModel)]="userInfo.idType" nzPlaceHolder="证件类型" [nzDisabled]="disabled">
+              <nz-option nzValue="0" nzLabel="身份证"></nz-option>
+              <nz-option nzValue="1" nzLabel="港澳通行证"></nz-option>
+              <nz-option nzValue="2" nzLabel="台湾通行证"></nz-option>
+              <nz-option nzValue="3" nzLabel="护照"></nz-option>
+            </nz-select>
+            <input nz-input [(ngModel)]="userInfo.userID" [disabled]="disabled" style="width:260px">
+          </div>
+        </div>
+        <div nz-row style="margin-top:4px;">
+          <div nz-col nzSpan="12">
+            <span class="search_label">手机号码：</span>
+            <input nz-input [(ngModel)]="userInfo.telephone" style="width:60%" [disabled]="disabled">
+          </div>
+          <div nz-col nzSpan="12">
+            <span class="search_label">家庭地址：</span>
+            <input nz-input [(ngModel)]="userInfo.address" style="width:60%" [disabled]="disabled">
+          </div>
+        </div>
+        <div nz-row style="margin-top:4px;">
+          <div nz-col nzSpan="12">
+            <span class="search_label">联系人姓名：</span>
+            <input nz-input [(ngModel)]="userInfo.contactName" style="width:60%" [disabled]="disabled">
+          </div>
+          <div nz-col nzSpan="12">
+            <span class="search_label">联系人电话：</span>
+            <input nz-input [(ngModel)]="userInfo.contactPhone" style="width:60%" [disabled]="disabled">
+          </div>
+        </div>
+        <div nz-row style="margin-top:4px;">
+          <div nz-col nzSpan="6">
+            <span class="search_label">医保号：</span>
+            <input nz-input [(ngModel)]="userInfo.medicalNo" style="width:50%" [disabled]="disabled">
+          </div>
+          <div nz-col nzSpan="6">
+            <span class="search_label">患者来源：</span>
+            <nz-select style="width: 120px;" [(ngModel)]="userInfo.from" [nzDisabled]="disabled">
+              <nz-option nzValue="0" nzLabel="住院"></nz-option>
+              <nz-option nzValue="1" nzLabel="门诊"></nz-option>
+            </nz-select>
+          </div>
+          <div nz-col nzSpan="6">
+            <span class="search_label">住院号：</span>
+            <input nz-input [(ngModel)]="userInfo.hospitalNo" style="width:50%" [disabled]="disabled">
+          </div>
+          <div nz-col nzSpan="6">
+            <span class="search_label">门诊号：</span>
+            <input nz-input [(ngModel)]="userInfo.clinicNo" style="width:50%" [disabled]="disabled">
+          </div>
+        </div>
+        <div nz-row style="margin-top:8px">
+          <div nz-col nzSpan="12">
+            <span class="search_label required">申请类别(必填)：</span>
+            <nz-select style="width:60%" [(ngModel)]="patientMedicalInfo.applyType" nzPlaceHolder="选择申请类别" [nzDisabled]="disabled">
+              <nz-option nzValue="0" nzLabel="住院"></nz-option>
+              <nz-option nzValue="1" nzLabel="门诊"></nz-option>
+              <nz-option nzValue="2" nzLabel="检查"></nz-option>
+              <nz-option nzValue="3" nzLabel="检验"></nz-option>
+            </nz-select>
+          </div>
+          <div nz-col nzSpan="12">
+            <span class="search_label">费用类别：</span>
+            <nz-select style="width:60%" [(ngModel)]="patientMedicalInfo.costType" nzPlaceHolder="选择费用类别" [nzDisabled]="disabled">
+              <nz-option nzValue="0" nzLabel="自费"></nz-option>
+              <nz-option nzValue="1" nzLabel="农合"></nz-option>
+              <nz-option nzValue="2" nzLabel="医保"></nz-option>
+              <nz-option nzValue="3" nzLabel="职工医保"></nz-option>
+              <nz-option nzValue="4" nzLabel="企业在职"></nz-option>
+              <nz-option nzValue="5" nzLabel="新农合"></nz-option>
+              <nz-option nzValue="6" nzLabel="工伤保险"></nz-option>
+              <nz-option nzValue="7" nzLabel="医疗保险"></nz-option>
+              <nz-option nzValue="8" nzLabel="其他"></nz-option>
+            </nz-select>
+          </div>
+        </div>
+      </nz-collapse-panel>
+
+      <nz-collapse-panel nzHeader="患者基本医疗信息（点击展开）" [nzActive]="false" [ngStyle]="customStyle">
+        <div nz-row style="margin-top:8px">
+          <div nz-col nzSpan="24">
+            <span class="search_label">转诊原因：</span>
+            <nz-select nzMode="tags" style="width: 80%;" [(ngModel)]="patientMedicalInfo.transferReason" [nzDisabled]="disabled">
+              <nz-option *ngFor="let option of transferOptions" [nzLabel]="option.label" [nzValue]="option.value">
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
+        <div nz-row style="margin-top:8px">
+          <div nz-col nzSpan="24">
+            <span class="search_label">转诊目的：</span>
+            <input nz-input [(ngModel)]="patientMedicalInfo.transferPurpose" style="width:80%" [disabled]="disabled">
+          </div>
+        </div>
+        <div nz-row style="margin-top:4px;">
+          <div nz-col nzSpan="24">
+            <span class="search_label">患者诊断：</span>
+            <input nz-input [(ngModel)]="patientMedicalInfo.diagnose" style="width:80%" [disabled]="disabled">
+          </div>
+        </div>
+        <div nz-row style="margin-top:4px;">
+          <div nz-col nzSpan="24">
+            <span class="search_label">病情描述：</span>
+            <textarea nz-input [(ngModel)]="patientMedicalInfo.description" [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+              style="width:80%" [disabled]="disabled"></textarea>
+          </div>
+        </div>
+        <div nz-row style="margin-top:8px">
+          <div nz-col nzSpan="24">
+            <span class="search_label">既往史：</span>
+            <input nz-input [(ngModel)]="patientMedicalInfo.history" style="width:80%" [disabled]="disabled">
+          </div>
+        </div>
+        <div nz-row style="margin-top:4px;">
+          <div nz-col nzSpan="24">
+            <span class="search_label">出院总结：</span>
+            <textarea nz-input [(ngModel)]="patientMedicalInfo.summary" [nzAutosize]="{ minRows: 2, maxRows: 6 }" style="width:80%"
+              [disabled]="disabled"></textarea>
+          </div>
+        </div>
+      </nz-collapse-panel>
+
+      <nz-collapse-panel nzHeader="转入医疗机构信息（点击展开）" [nzActive]="false" [ngStyle]="customStyle">
+        <div nz-row>
+          <div nz-col nzSpan="8">
+            <span class="search_label required">方向(必填)：</span>
+            <nz-radio-group [(ngModel)]="inOrgInfo.direction">
+              <label nz-radio nzValue="0">上转</label>
+              <label nz-radio nzValue="1">平转</label>
+              <label nz-radio nzValue="2">下转</label>
+            </nz-radio-group>
+          </div>
+          <div nz-col nzSpan="8">
+            <span class="search_label">转入时间：</span>
+            <nz-date-picker [(ngModel)]="inOrgInfo.date" (ngModelChange)="onChange($event)"></nz-date-picker>
+          </div>
+        </div>
+        <div nz-row style="margin-top:4px;">
+          <div nz-col nzSpan="8">
+            <span class="search_label required">转入医院(必填)：</span>
+            <nz-select style="width:50%" [(ngModel)]="inOrgInfo.hospital">
+              <nz-option nzValue="0" nzLabel="六塘中心卫生院"></nz-option>
+            </nz-select>
+          </div>
+          <div nz-col nzSpan="8">
+            <span class="search_label">转入科室：</span>
+            <nz-select style="width:50%" [(ngModel)]="inOrgInfo.inDept">
+              <nz-option nzValue="13409" nzLabel="妇保科"></nz-option>
+            </nz-select>
+          </div>
+          <div nz-col nzSpan="8">
+            <span class="search_label">负责医生：</span>
+            <nz-select style="width:50%" [(ngModel)]="inOrgInfo.inDoctor">
+              <nz-option nzValue="lt502" nzLabel="靳爱军"></nz-option>
+              <nz-option nzValue="lt509" nzLabel="文富英"></nz-option>
+              <nz-option nzValue="lt518" nzLabel="龙小兰"></nz-option>
+            </nz-select>
+          </div>
+        </div>
+      </nz-collapse-panel>
+    </nz-collapse>
+  </div>
+  <div style="position: absolute;top: 40%;left: 45%;" *ngIf="loading">
+    
+    <nz-spin [nzIndicator]="indicatorTemplate" nzSize='large' nzTip='保存数据中...'></nz-spin>
+  </div>
+  <ng-template #indicatorTemplate><i nz-icon type="loading" style="font-size: 36px;"></i>
+  </ng-template>
+</div>
+
+
