@@ -37,7 +37,7 @@ registerLocaleData(zh);
       { path: 'login', component: LoginComponent },
       { path: 'home', component: HomeComponent },
       { path: '**', redirectTo: 'login', pathMatch: 'full' }
-  ])
+  ],{useHash:true})
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]

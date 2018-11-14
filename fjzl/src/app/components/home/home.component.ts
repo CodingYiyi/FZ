@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map, mergeMap } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd';
 
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
 
   transferOptions = [
     {
-      label: "对该病诊断不明或我院治疗能力、技术条件等受限",
+      label: "受限于我院治疗能力、医疗器械、技术条件等",
       value: "0"
     },
     {
@@ -35,8 +35,12 @@ export class HomeComponent implements OnInit {
       value: "2"
     },
     {
-      label: "对该病我院有诊治能力，患者（家属）拒绝在我院诊治，要求转其他医院诊治",
+      label: "诊断不明",
       value: "3"
+    },
+    {
+      label: "家属自愿要求",
+      value: "4"
     }
   ];
   transferNodes = [
@@ -74,7 +78,7 @@ export class HomeComponent implements OnInit {
     public route: ActivatedRoute,
     private http: HttpClient,
     private message: NzMessageService
-    ) {
+  ) {
   }
 
   ngOnInit() {
@@ -107,10 +111,10 @@ export class HomeComponent implements OnInit {
           summary: param.outSummary,
           costType: param.costType,
           history: param.illnessHistory
-        },
-          this.inOrgInfo = {
-            direction: "2"
-          }
+        }
+        this.inOrgInfo = {
+          direction: "2"
+        }
       } else {
         this.userInfo = JSON.parse(window.localStorage.getItem("userInfo")) || {};
         this.patientMedicalInfo = JSON.parse(window.localStorage.getItem("patientMedicalInfo")) || {};
@@ -129,15 +133,27 @@ export class HomeComponent implements OnInit {
   }
   submit() {
     this.loading = true;
+    // let data = new FormData();
+    // data.append("patientName",this.userInfo.patientName);
+    // data.append("idCardNo",this.userInfo.userID);
+    // data.append("inDeptCode",this.inOrgInfo.inDept);
+    // data.append("inDeptName","妇保科",);
+    // data.append("inDoctorCode",this.inOrgInfo.inDoctor);
+    // data.append("inDoctorName",this.getDocName(this.inOrgInfo.inDoctor));
+    let data = new HttpParams({ fromObject: { 
+      patientName: this.userInfo.patientName,
+      idCardNo: this.userInfo.userID,
+      inDeptCode: this.inOrgInfo.inDept,
+      inDeptName: "妇保科",
+      inDoctorCode: this.inOrgInfo.inDoctor,
+      inDoctorName: this.getDocName(this.inOrgInfo.inDoctor)
+    } });
     if (this.fromLogin) {
-      this.http.post<any>("http://172.25.40.18:8089/commit/his", {
-        patientName: "hehe",
-        idCardNo: "341622199501070922",
-        inDeptCode: "13409",
-        inDeptName: "妇保科",
-        inDoctorCode: "lt502",
-        inDoctorName: "靳爱军"
-      })
+      this.http.post<any>("http://193.112.74.16:8089/commit/his", data, {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          })
+        })
         .subscribe(res => {
           this.loading = false;
           this.message.create("success", `数据保存成功!!!`);
@@ -164,7 +180,21 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  onChange() {
+  onChange(e) {
+
+  }
+
+  getDocName(code) {
+    switch (code) {
+      case "lt502":
+        return "靳爱军";
+      case "lt509":
+        return "文富英";
+      case "lt518":
+        return "龙小兰"
+      default:
+        return ""
+    }
 
   }
 

@@ -1,5 +1,5 @@
 <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
-  <h2>分级诊疗平台</h2>
+  <h2>双向转诊系统</h2>
   <nz-form-item>
     <nz-form-control>
       <nz-input-group [nzPrefix]="prefixUser">
@@ -18,13 +18,7 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-control>
-      <label nz-checkbox formControlName="remember">
-        <span>记住密码</span>
-      </label>
-      <a class="login-form-forgot" class="login-form-forgot">忘记密码</a>
       <button nz-button class="login-form-button" [nzType]="'primary'">登&nbsp;录</button>
-      没有账号？
-      <a href="">立即注册!</a>
     </nz-form-control>
   </nz-form-item>
 </form>
